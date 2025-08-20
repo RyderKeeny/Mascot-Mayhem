@@ -1,0 +1,108 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsvwu6m24pq53"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_74uq2"]
+[ext_resource type="Texture2D" uid="uid://bric8j281y2u8" path="res://Gator_walking(1).png" id="3_thk74"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i3kl"]
+size = Vector2(305, 162)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8otro"]
+atlas = ExtResource("3_thk74")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0jkst"]
+atlas = ExtResource("3_thk74")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xayjk"]
+atlas = ExtResource("3_thk74")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4yxd"]
+atlas = ExtResource("3_thk74")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h8u0v"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8otro")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0jkst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xayjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4yxd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dipfo"]
+size = Vector2(30.0002, 17.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uk6b8"]
+size = Vector2(20.8598, 36.413)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ipx3j"]
+size = Vector2(20, 34)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(-1, 1)
+collision_layer = 2
+script = ExtResource("1_74uq2")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.25, 2.25)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+drag_horizontal_enabled = true
+drag_left_margin = 0.3
+drag_right_margin = 0.3
+
+[node name="Area2D" type="Area2D" parent="Camera2D" groups=["camera_area"]]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Area2D"]
+shape = SubResource("RectangleShape2D_1i3kl")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.125007, -9.09495e-13)
+scale = Vector2(0.199219, 0.190104)
+sprite_frames = SubResource("SpriteFrames_h8u0v")
+animation = &"walk"
+
+[node name="Attack" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="HurtBox" type="CollisionShape2D" parent="Attack"]
+show_behind_parent = true
+light_mask = 2
+position = Vector2(2.99989, 0.999969)
+rotation = -3.14159
+shape = SubResource("RectangleShape2D_dipfo")
+
+[node name="Body" type="Area2D" parent="."]
+light_mask = 8
+visibility_layer = 4
+collision_layer = 4
+collision_mask = 8
+
+[node name="HitBox" type="CollisionShape2D" parent="Body"]
+show_behind_parent = true
+light_mask = 8
+visibility_layer = 4
+scale = Vector2(1.02344, 0.945313)
+shape = SubResource("RectangleShape2D_uk6b8")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ipx3j")

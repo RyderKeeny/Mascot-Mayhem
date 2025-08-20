@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8tsyyewu8yuf"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_cdlkd"]
+[ext_resource type="Texture2D" uid="uid://c45oiy6dio0hx" path="res://among_us_player_blue_icon_156941.webp" id="2_wwmia"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hjsu5"]
+size = Vector2(19.5, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4apa"]
+size = Vector2(17, 23.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7o67c"]
+size = Vector2(16, 24)
+
+[node name="Enemy1" type="CharacterBody2D"]
+position = Vector2(0, -14)
+collision_layer = 4
+script = ExtResource("1_cdlkd")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, 15)
+scale = Vector2(0.0556641, 0.0556641)
+texture = ExtResource("2_wwmia")
+
+[node name="Attack" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="HurtBox" type="CollisionShape2D" parent="Attack"]
+show_behind_parent = true
+light_mask = 4
+visibility_layer = 8
+position = Vector2(-1.25, 16)
+shape = SubResource("RectangleShape2D_hjsu5")
+
+[node name="Body" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="HitBox" type="CollisionShape2D" parent="Body"]
+show_behind_parent = true
+visibility_layer = 2
+position = Vector2(1.52588e-05, 15)
+shape = SubResource("RectangleShape2D_x4apa")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 15)
+shape = SubResource("RectangleShape2D_7o67c")
