@@ -1,6 +1,7 @@
 extends Node2D
 
-@export var enemy_scene : PackedScene
+var enemy_scene = preload("res://Enemy.tscn")
+var enemy_fan = preload("res://Fan.tscn")
 @export var max_enemies : int = 3
 @export var spawn_delay : float = 2.0
 @export var auto_start : bool = true
@@ -16,7 +17,7 @@ var spawn_triggered := false
 func _ready():
 	camera_area = get_tree().get_first_node_in_group("camera_area")
 
-	if !marker or !enemy_scene or !spawn_area:
+	if !marker or !enemy_scene or !enemy_fan or !spawn_area:
 		return
 
 	spawn_area.monitoring = true
@@ -36,7 +37,7 @@ func _process(_delta):
 		await spawn_sequence()
 
 func spawn_enemy():
-	var enemy = enemy_scene.instantiate()
+	var enemy = enemy_fan.instantiate()
 	var parent = get_parent()
 	if !enemy or !parent:
 		return

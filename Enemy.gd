@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+class_name Enemy
 @onready var attack_area = $Attack
 @onready var hitbox = $HitBox  # Reference to own HitBox
 
@@ -9,6 +9,10 @@ var SPEED = 50.0
 var MIN_DISTANCE = 15.0
 var health = 15
 var can_attack = true
+var normal_attack = false
+var ranged_attack = false
+var jump_attack = false
+var charge_attack = false
 
 func _ready():
 	player = get_node("../Player")
@@ -31,6 +35,8 @@ func attack_player():
 
 	await get_tree().create_timer(1).timeout
 	can_attack = true
+
+# functioanlity for developing charging attacks
 
 
 func take_damage(amount: int):

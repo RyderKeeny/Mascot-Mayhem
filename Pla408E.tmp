@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://du8x5ythuadm0" path="res://Assets/Players/Gator-sheet.png" id="2_67c3f"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1i3kl"]
-size = Vector2(245.5, 155)
+size = Vector2(305, 162)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xjs7d"]
 atlas = ExtResource("2_67c3f")
@@ -54,7 +54,7 @@ region = Rect2(0, 0, 64, 64)
 atlas = ExtResource("2_67c3f")
 region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_no1gr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jll67"]
 atlas = ExtResource("2_67c3f")
 region = Rect2(64, 128, 64, 64)
 
@@ -93,15 +93,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bunyh")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_usuqw")
 }, {
-"duration": 1.5,
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_irnlf")
 }],
-"loop": false,
+"loop": true,
 "name": &"Attack",
-"speed": 6.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -138,19 +138,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_no1gr")
-}],
-"loop": true,
-"name": &"Jump_up",
-"speed": 5.0
+"texture": SubResource("AtlasTexture_jll67")
 }, {
-"frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fft5q")
 }],
 "loop": true,
-"name": &"Landing",
-"speed": 1.0
+"name": &"Jump",
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -174,29 +169,37 @@ animations = [{
 size = Vector2(30.0002, 17.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uk6b8"]
-size = Vector2(51.6541, 68.8161)
+size = Vector2(20.8598, 36.413)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ipx3j"]
-size = Vector2(52.5, 63.25)
+size = Vector2(20, 34)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(-1, 1)
 collision_layer = 2
 script = ExtResource("1_74uq2")
 
-[node name="Area2D" type="Area2D" parent="." groups=["camera_area"]]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2.25, 2.25)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+drag_horizontal_enabled = true
+drag_left_margin = 0.3
+drag_right_margin = 0.3
+
+[node name="Area2D" type="Area2D" parent="Camera2D" groups=["camera_area"]]
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/Area2D"]
 shape = SubResource("RectangleShape2D_1i3kl")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.125007, -9.09495e-13)
+scale = Vector2(0.199219, 0.190104)
 sprite_frames = SubResource("SpriteFrames_h8u0v")
 animation = &"Walk"
 
 [node name="Attack" type="Area2D" parent="."]
-visible = false
 collision_mask = 2
 
 [node name="HurtBox" type="CollisionShape2D" parent="Attack"]
@@ -221,5 +224,3 @@ shape = SubResource("RectangleShape2D_uk6b8")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ipx3j")
-
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

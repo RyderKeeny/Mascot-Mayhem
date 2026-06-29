@@ -12,7 +12,7 @@ size = Vector2(17, 23.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7o67c"]
 size = Vector2(16, 24)
 
-[node name="Enemy1" type="CharacterBody2D"]
+[node name="Football_Fan" type="CharacterBody2D"]
 position = Vector2(0, -14)
 collision_layer = 4
 script = ExtResource("1_cdlkd")
